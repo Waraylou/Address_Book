@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AddressBook">
         <activity
+            android:name=".PreferencesActivity"
+            android:exported="false" />
+        <activity
             android:name=".ContactActivity"
             android:exported="false" />
         <activity

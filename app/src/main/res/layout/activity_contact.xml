@@ -19,14 +19,16 @@
 
     <EditText
         android:id="@+id/phoneNumber_editText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="phone"
-        android:textSize="20sp"
         android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/phoneNumber_label"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/phoneNumber_label"
         app:layout_constraintTop_toTopOf="@+id/phoneNumber_label" />
 
@@ -43,14 +45,16 @@
 
     <EditText
         android:id="@+id/email_editText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="47dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:textSize="20sp"
         android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/email_label"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/email_label"
         app:layout_constraintTop_toTopOf="@+id/email_label"
         app:layout_constraintVertical_bias="0.5" />
@@ -68,14 +72,16 @@
 
     <EditText
         android:id="@+id/address_editText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textPostalAddress"
-        android:textSize="20sp"
         android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/address_label"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/address_label"
         app:layout_constraintTop_toTopOf="@+id/address_label" />
 
@@ -114,27 +120,31 @@
 
     <EditText
         android:id="@+id/firstName_editText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textSize="20sp"
         android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/firstName_label"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/firstName_label"
         app:layout_constraintTop_toTopOf="@+id/firstName_label" />
 
     <EditText
         android:id="@+id/lastName_editText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textSize="20sp"
         android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/lastName_label"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lastName_label"
         app:layout_constraintTop_toTopOf="@+id/lastName_label" />
 
@@ -156,5 +166,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description_label" />
+
+    <ImageView
+        android:id="@+id/mail_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/email_editText"
+        app:layout_constraintEnd_toStartOf="@+id/email_editText"
+        app:layout_constraintTop_toTopOf="@+id/email_editText"
+        app:srcCompat="@drawable/ic_mail" />
+
+    <ImageView
+        android:id="@+id/text_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/phoneNumber_editText"
+        app:layout_constraintEnd_toStartOf="@+id/phoneNumber_editText"
+        app:layout_constraintTop_toTopOf="@+id/phoneNumber_editText"
+        app:srcCompat="@drawable/ic_text_icon" />
+
+    <ImageView
+        android:id="@+id/map_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/address_editText"
+        app:layout_constraintEnd_toStartOf="@+id/address_editText"
+        app:layout_constraintTop_toTopOf="@+id/address_editText"
+        app:srcCompat="@drawable/ic_map" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

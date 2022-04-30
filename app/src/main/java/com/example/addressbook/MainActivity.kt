@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.addressbook.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +27,28 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val layoutManager = LinearLayoutManager(this)
+        binding.contactView.setLayoutManager(layoutManager)
+
+        val divider = DividerItemDecoration(
+            applicationContext, layoutManager.orientation
+        )
+        binding.contactView.addItemDecoration(divider)
+
+        adapter = MyAdapter()
+        binding.contactView.adapter = adapter
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val db = AppDatabase.getDatabase(applicationContext)
+            val dao = db.contactDao()
+            val results = dao.getContactsByTitle()
+
+            withContext(Dispatchers.Main) {
+                data.clear()
+                data.addAll(results)
+                adapter.notifyDataSetChanged()
+            }
+        }
 
     }
 
@@ -32,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         CoroutineScope(Dispatchers.IO).launch {
             val db = AppDatabase.getDatabase(applicationContext)
-            val dao = db.noteDao()
+            val dao = db.contactDao()
             val results = dao.getContactsByTitle()
 
             withContext(Dispatchers.Main) {
@@ -93,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-            var title = data[position].firstName + data[position].lastName
+            var title = data[position].firstName + " " + data[position].lastName
 
 
             holder.setText(title)

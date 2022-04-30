@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Contact::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun noteDao(): ContactDao
+    abstract fun contactDao(): ContactDao
 
     companion object {
         private val NAME_OF_DATABASE = "my_database"

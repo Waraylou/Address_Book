@@ -3,12 +3,14 @@ package com.example.addressbook
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.addressbook.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,6 +28,37 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    override fun onResume() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val db = AppDatabase.getDatabase(applicationContext)
+            val dao = db.noteDao()
+            val results = dao.getContactsByTitle()
+
+            withContext(Dispatchers.Main) {
+                data.clear()
+                data.addAll(results)
+                adapter.notifyDataSetChanged()
+            }
+        }
+        super.onResume()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.add_menu_item) {
+            val intent = Intent(applicationContext, ContactActivity::class.java)
+            intent.putExtra("purpose", "Add")
+
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     inner class MyViewHolder(val view: View) :
         RecyclerView.ViewHolder(view), View.OnClickListener {
@@ -60,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-            var title = data[position].name
+            var title = data[position].firstName + data[position].lastName
 
 
             holder.setText(title)

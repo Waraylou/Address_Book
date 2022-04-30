@@ -7,7 +7,7 @@ interface ContactDao {
     @Insert
     fun insertContact(contact: Contact) : Long
 
-    @Query("SELECT * FROM Contact ORDER BY name")
+    @Query("SELECT * FROM Contact ORDER BY lastName")
     fun getContactsByTitle(): List<Contact>
 
     @Update

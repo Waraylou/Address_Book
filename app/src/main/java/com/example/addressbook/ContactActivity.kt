@@ -96,6 +96,15 @@ class ContactActivity : AppCompatActivity() {
             binding.divider2.setBackgroundColor(grey)
             binding.divider3.setBackgroundColor(grey)
             binding.divider4.setBackgroundColor(grey)
+
+            var blue = Color.parseColor("#21AAFF")
+            if (darkMode) {
+                blue = Color.parseColor("#009AD0")
+            }
+
+            binding.emailEditText.setTextColor(blue)
+            binding.addressEditText.setTextColor(blue)
+            binding.phoneNumberEditText.setTextColor(blue)
         }
     }
 

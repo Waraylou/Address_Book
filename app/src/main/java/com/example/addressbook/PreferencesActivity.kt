@@ -35,7 +35,15 @@ class PreferencesActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeL
             val grey = Color.parseColor("#6F6F6F")
             binding.myConstraintLayout.setBackgroundColor(grey)
             binding.darkModeCheckBox.setTextColor(white)
-            binding.darkModeCheckBox.setBackgroundColor(white)
+            binding.divider6.setBackgroundColor(white)
+        }
+        else{
+            val white = Color.parseColor("#FFFFFF")
+            val grey = Color.parseColor("#6F6F6F")
+            val black = Color.parseColor("#000000")
+            binding.myConstraintLayout.setBackgroundColor(white)
+            binding.darkModeCheckBox.setTextColor(black)
+            binding.divider6.setBackgroundColor(black)
         }
     }
 
@@ -47,6 +55,21 @@ class PreferencesActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeL
         with(preferences.edit()){
             putBoolean("dark_mode", checked)
             apply()
+        }
+        if(!checked){
+            val white = Color.parseColor("#FFFFFF")
+            val grey = Color.parseColor("#6F6F6F")
+            val black = Color.parseColor("#000000")
+            binding.myConstraintLayout.setBackgroundColor(white)
+            binding.darkModeCheckBox.setTextColor(black)
+            binding.divider6.setBackgroundColor(black)
+        }
+        else{
+            val white = Color.parseColor("#FFFFFF")
+            val grey = Color.parseColor("#6F6F6F")
+            binding.myConstraintLayout.setBackgroundColor(grey)
+            binding.darkModeCheckBox.setTextColor(white)
+            binding.divider6.setBackgroundColor(white)
         }
     }
 }

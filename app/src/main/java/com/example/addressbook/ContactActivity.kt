@@ -1,6 +1,7 @@
 package com.example.addressbook
 
 import android.R.color
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -27,6 +28,8 @@ class ContactActivity : AppCompatActivity() {
 
     private var saveItem: MenuItem? = null
 
+    private var darkMode = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityContactBinding.inflate(layoutInflater)
@@ -49,6 +52,54 @@ class ContactActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        val preferences = getSharedPreferences(
+            "app_preferences",
+            Context.MODE_PRIVATE
+        )
+        darkMode = preferences.getBoolean("dark_mode", false)
+        if(darkMode){
+            val color = Color.parseColor("#FFFFFF")
+            val black = Color.parseColor("#000000")
+            val grey = Color.parseColor("#6F6F6F")
+            val underline = ColorStateList.valueOf(color);
+
+            binding.myConstraintLayout.setBackgroundColor(black)
+            binding.firstNameEditText.setTextColor(color)
+            binding.firstNameEditText.backgroundTintList = underline
+            binding.lastNameEditText.setTextColor(color)
+            binding.lastNameEditText.backgroundTintList = underline
+            binding.addressEditText.setTextColor(color)
+            binding.addressEditText.backgroundTintList = underline
+            binding.emailEditText.setTextColor(color)
+            binding.emailEditText.backgroundTintList = underline
+            binding.phoneNumberEditText.setTextColor(color)
+            binding.phoneNumberEditText.backgroundTintList = underline
+            binding.descriptionEditText.setTextColor(color)
+            binding.descriptionEditText.setBackgroundColor(grey)
+
+            binding.firstNameLabel.setTextColor(color)
+            binding.lastNameLabel.setTextColor(color)
+            binding.addressLabel.setTextColor(color)
+            binding.emailLabel.setTextColor(color)
+            binding.phoneNumberLabel.setTextColor(color)
+            binding.descriptionLabel.setTextColor(color)
+
+            binding.mapIcon.setImageResource(R.drawable.ic_dark_map)
+            binding.mailIcon.setImageResource(R.drawable.ic_dark_mail)
+            binding.textIcon.setImageResource(R.drawable.ic_dark_text)
+
+            binding.divider.setBackgroundColor(grey)
+            binding.divider5.setBackgroundColor(grey)
+            binding.divider2.setBackgroundColor(grey)
+            binding.divider3.setBackgroundColor(grey)
+            binding.divider4.setBackgroundColor(grey)
+        }
+    }
+
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.contact_menu, menu)
         if(purpose == "Add"){
@@ -64,6 +115,10 @@ class ContactActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.edit_menu_item) {
+            binding.addressEditText.setOnClickListener(null)
+            binding.phoneNumberEditText.setOnClickListener(null)
+            binding.emailEditText.setOnClickListener(null)
+
             binding.firstNameEditText.isEnabled = true
             binding.lastNameEditText.isEnabled = true
             binding.addressEditText.isFocusable = true
@@ -74,13 +129,7 @@ class ContactActivity : AppCompatActivity() {
             purpose = "Update"
 
             setTitle("Edit Contact")
-            // setting a note to edit mode removes the option from the menu as you are already doing that
             item.isVisible = false
-            saveItem?.isVisible = true
-
-            binding.addressEditText.setOnClickListener(null)
-            binding.phoneNumberEditText.setOnClickListener(null)
-            binding.emailEditText.setOnClickListener(null)
 
 
         } else if (item.itemId == R.id.delete_menu_item) {
@@ -117,7 +166,10 @@ class ContactActivity : AppCompatActivity() {
                     binding.phoneNumberEditText.setText(contact.phone_number)
                     binding.descriptionEditText.setText(contact.description)
 
-                    val color = Color.parseColor("#21AAFF")
+                    var color = Color.parseColor("#21AAFF")
+                    if(darkMode){
+                        color = Color.parseColor("#009AD0")
+                    }
 
                     binding.emailEditText.setTextColor(color)
                     binding.emailEditText.setOnClickListener {

@@ -26,7 +26,7 @@ class ContactActivity : AppCompatActivity() {
 
     private var purpose: String? = ""
 
-    private var saveItem: MenuItem? = null
+    private var menuRef: Menu? = null
 
     private var darkMode = false
 
@@ -46,8 +46,7 @@ class ContactActivity : AppCompatActivity() {
         if (purpose == "View") {
             val id = intent.getLongExtra("id", 0L)
             viewContact(id)
-        }
-        else if(purpose == "Add"){
+        } else if (purpose == "Add") {
 
         }
     }
@@ -60,11 +59,12 @@ class ContactActivity : AppCompatActivity() {
             Context.MODE_PRIVATE
         )
         darkMode = preferences.getBoolean("dark_mode", false)
-        if(darkMode){
+        if (darkMode) {
             val color = Color.parseColor("#FFFFFF")
             val black = Color.parseColor("#000000")
             val grey = Color.parseColor("#6F6F6F")
             val underline = ColorStateList.valueOf(color);
+
 
             binding.myConstraintLayout.setBackgroundColor(black)
             binding.firstNameEditText.setTextColor(color)
@@ -102,43 +102,50 @@ class ContactActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.contact_menu, menu)
-        if(purpose == "Add"){
+        if (purpose == "Add") {
             menu?.findItem(R.id.edit_menu_item)?.isVisible = false
             menu?.findItem(R.id.delete_menu_item)?.isVisible = false
             menu?.findItem(R.id.cancel_menu_item)?.isVisible = true
             menu?.findItem(R.id.save_menu_item)?.isVisible = true
 
-            saveItem = menu?.findItem(R.id.save_menu_item)
         }
+        menuRef = menu
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.edit_menu_item) {
             binding.addressEditText.setOnClickListener(null)
-            binding.phoneNumberEditText.setOnClickListener(null)
             binding.emailEditText.setOnClickListener(null)
+            binding.phoneNumberEditText.setOnClickListener(null)
 
             binding.firstNameEditText.isEnabled = true
             binding.lastNameEditText.isEnabled = true
             binding.addressEditText.isFocusable = true
+            binding.addressEditText.isFocusableInTouchMode = true
             binding.emailEditText.isFocusable = true
+            binding.emailEditText.isFocusableInTouchMode = true
             binding.phoneNumberEditText.isFocusable = true
+            binding.phoneNumberEditText.isFocusableInTouchMode = true
             binding.descriptionEditText.isEnabled = true
 
             purpose = "Update"
 
+            var test = binding.phoneNumberEditText.isFocusable
+
             setTitle("Edit Contact")
             item.isVisible = false
+            var thing = menuRef?.findItem(R.id.save_menu_item)
+            thing?.isVisible = true
 
 
         } else if (item.itemId == R.id.delete_menu_item) {
             deleteContact()
-        } else if(item.itemId == R.id.cancel_menu_item){
+        } else if (item.itemId == R.id.cancel_menu_item) {
             purpose = "Canceled"
             Log.i(purpose, "Contact creation canceled")
             onBackPressed()
-        } else if(item.itemId == R.id.save_menu_item){
+        } else if (item.itemId == R.id.save_menu_item) {
             onBackPressed()
         }
         return super.onOptionsItemSelected(item)
@@ -167,35 +174,54 @@ class ContactActivity : AppCompatActivity() {
                     binding.descriptionEditText.setText(contact.description)
 
                     var color = Color.parseColor("#21AAFF")
-                    if(darkMode){
+                    if (darkMode) {
                         color = Color.parseColor("#009AD0")
                     }
 
                     binding.emailEditText.setTextColor(color)
                     binding.emailEditText.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_SEND)
-                        intent.putExtra(Intent.EXTRA_EMAIL, binding.emailEditText.text.toString())
-                        if (intent.resolveActivity(packageManager) != null) {
-                            startActivity(intent)
-                        }else{
+                        if (binding.emailEditText.text.toString() != "") {
+                            val intent = Intent(Intent.ACTION_SEND)
+                            intent.putExtra(
+                                Intent.EXTRA_EMAIL,
+                                binding.emailEditText.text.toString()
+                            )
+                            if (intent.resolveActivity(packageManager) != null) {
+                                startActivity(intent)
+                            } else {
+                                val builder = AlertDialog.Builder(binding.root.context)
+                                builder.setTitle("No Email Application Detected")
+                                builder.setMessage("Please install a Email application to utilize this feature.")
+                                builder.show()
+                            }
+                        } else {
                             val builder = AlertDialog.Builder(binding.root.context)
-                            builder.setTitle("No Email Application Detected")
-                            builder.setMessage("Please install a Email application to utilize this feature.")
+                            builder.setTitle("No Email Address Detected")
+                            builder.setMessage("Please add an Email address to utilize this feature.")
                             builder.show()
                         }
                     }
 
                     binding.phoneNumberEditText.setTextColor(color)
                     binding.phoneNumberEditText.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_SENDTO)
-                        intent.data = Uri.parse("smsto:"
-                                + binding.phoneNumberEditText.text.toString())
-                        if (intent.resolveActivity(packageManager) != null) {
-                            startActivity(intent)
-                        }else{
+                        if (binding.phoneNumberEditText.text.toString() != "") {
+                            val intent = Intent(Intent.ACTION_SENDTO)
+                            intent.data = Uri.parse(
+                                "smsto:"
+                                        + binding.phoneNumberEditText.text.toString()
+                            )
+                            if (intent.resolveActivity(packageManager) != null) {
+                                startActivity(intent)
+                            } else {
+                                val builder = AlertDialog.Builder(binding.root.context)
+                                builder.setTitle("No Text Message Application Detected")
+                                builder.setMessage("Please install a Text Message application to utilize this feature.")
+                                builder.show()
+                            }
+                        } else {
                             val builder = AlertDialog.Builder(binding.root.context)
-                            builder.setTitle("No Text Message Application Detected")
-                            builder.setMessage("Please install a Text Message application to utilize this feature.")
+                            builder.setTitle("No Phone Number Detected")
+                            builder.setMessage("Please add a Phone Number to utilize this feature.")
                             builder.show()
                         }
 
@@ -203,10 +229,19 @@ class ContactActivity : AppCompatActivity() {
 
                     binding.addressEditText.setTextColor(color)
                     binding.addressEditText.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        intent.data = Uri.parse("geo:0,0?q="
-                                + binding.addressEditText.text.toString())
-                        startActivity(intent)
+                        if (binding.phoneNumberEditText.text.toString() != "") {
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(
+                                "geo:0,0?q="
+                                        + binding.addressEditText.text.toString()
+                            )
+                            startActivity(intent)
+                        } else {
+                            val builder = AlertDialog.Builder(binding.root.context)
+                            builder.setTitle("No Address Detected")
+                            builder.setMessage("Please add an Address to utilize this feature.")
+                            builder.show()
+                        }
                     }
                 }
             }
@@ -221,7 +256,7 @@ class ContactActivity : AppCompatActivity() {
         }
     }
 
-    fun deleteContact(){
+    fun deleteContact() {
         val listener = object : DialogInterface.OnClickListener {
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 if (which == DialogInterface.BUTTON_POSITIVE) {
@@ -255,7 +290,6 @@ class ContactActivity : AppCompatActivity() {
 
 
     }
-
 
 
     override fun onBackPressed() {

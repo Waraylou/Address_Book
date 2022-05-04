@@ -4,12 +4,13 @@ Address Book is a application that allows users to save information about others
  
 Users may store The first and last name of the person, their email address, their phone number, and their address.
   All contacts must have a First and Last Name. All other fields are optional.
-  On the main application, on the top right will be a plus icon and a gear icon.
+  On the main application, on the top right will be a menu and a gear icon.
   By clicking the gear icon a user will open the shared preferences menu which currently
-    only adds the option of a darkmode and shows informations about the app and me, the developer
+    only adds the option of a darkmode.
+  The user may gain information about the developer by pressing the menu on the top right of the main screen and selecting the "About" option
   Also on the main application, all contact are sorted by the last name of the contact.
   
-A user may add a contact by pressing the plus icon on the top right of the main screen
+A user may add a contact by pressing the menu on the top right of the main screen and selecting the "Add contact" option
   They will be directed to another activity with empty fields, they are only required to input a First and Last Name.
 
 Within the Add Contact activity, they may save a contact after they have input the required information

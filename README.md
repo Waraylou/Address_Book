@@ -25,12 +25,12 @@ Once a user has a contact created they May view it's details by simply pressing 
   
 Within the view contact activity there are also some cool features that were added at the suggestion of Dr.Nicholson.
   While viewing a contact a user may notice the icons next to the three fields: address, email, and Phone.
-  these fields are also colored blue to draw a user's attention to them.
+  The text within these fields are also colored blue to draw a user's attention to them.
   by pressing any of these fields while viewing a contact, a user will open an application based on the pressed field.
   Address will open the map to the location of the given address if possible.
   Email will open the default email client of the phone with that address in the 'to:' field.
   Phone will open the user's messages app to send a text message to the given number.
-  These fields will not open any of these applications if they are not available, for example if the user does not have a email application
+  these fields will not open any of these applications if they are not available, for example if the user does not have a email application
   an alertdialog will open to explain the issue.
   These fields will also not open any of these applications if they are empty, again an alertDialog will open to explain that to the user.
   

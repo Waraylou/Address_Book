@@ -10,6 +10,8 @@
     <item
         android:id="@+id/add_menu_item"
         android:icon="@drawable/ic_add_contact"
-        android:title="Item"
-        app:showAsAction="always" />
+        android:title="Create Contact" />
+    <item
+        android:id="@+id/about_menu_item"
+        android:title="About" />
 </menu>

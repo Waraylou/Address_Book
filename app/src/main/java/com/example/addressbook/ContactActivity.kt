@@ -201,12 +201,14 @@ class ContactActivity : AppCompatActivity() {
                                 val builder = AlertDialog.Builder(binding.root.context)
                                 builder.setTitle("No Email Application Detected")
                                 builder.setMessage("Please install a Email application to utilize this feature.")
+                                builder.setPositiveButton("Ok", null)
                                 builder.show()
                             }
                         } else {
                             val builder = AlertDialog.Builder(binding.root.context)
                             builder.setTitle("No Email Address Detected")
                             builder.setMessage("Please add an Email address to utilize this feature.")
+                            builder.setPositiveButton("Ok", null)
                             builder.show()
                         }
                     }
@@ -225,12 +227,14 @@ class ContactActivity : AppCompatActivity() {
                                 val builder = AlertDialog.Builder(binding.root.context)
                                 builder.setTitle("No Text Message Application Detected")
                                 builder.setMessage("Please install a Text Message application to utilize this feature.")
+                                builder.setPositiveButton("Ok", null)
                                 builder.show()
                             }
                         } else {
                             val builder = AlertDialog.Builder(binding.root.context)
                             builder.setTitle("No Phone Number Detected")
                             builder.setMessage("Please add a Phone Number to utilize this feature.")
+                            builder.setPositiveButton("Ok", null)
                             builder.show()
                         }
 
@@ -238,7 +242,7 @@ class ContactActivity : AppCompatActivity() {
 
                     binding.addressEditText.setTextColor(color)
                     binding.addressEditText.setOnClickListener {
-                        if (binding.phoneNumberEditText.text.toString() != "") {
+                        if (binding.addressEditText.text.toString() != "") {
                             val intent = Intent(Intent.ACTION_VIEW)
                             intent.data = Uri.parse(
                                 "geo:0,0?q="
@@ -249,6 +253,7 @@ class ContactActivity : AppCompatActivity() {
                             val builder = AlertDialog.Builder(binding.root.context)
                             builder.setTitle("No Address Detected")
                             builder.setMessage("Please add an Address to utilize this feature.")
+                            builder.setPositiveButton("Ok", null)
                             builder.show()
                         }
                     }
@@ -309,7 +314,7 @@ class ContactActivity : AppCompatActivity() {
                 val builder = AlertDialog.Builder(binding.root.context)
                 builder.setTitle("First or Last Name Empty")
                 builder.setMessage("This Contact must have a first and last name to be saved")
-
+                builder.setPositiveButton("Ok", null)
                 builder.show()
                 return;
             }
@@ -338,7 +343,7 @@ class ContactActivity : AppCompatActivity() {
                 val builder = AlertDialog.Builder(binding.root.context)
                 builder.setTitle("First or Last Name Empty")
                 builder.setMessage("This Contact must have a first and last name to be saved")
-
+                builder.setPositiveButton("Ok", null)
                 builder.show()
                 return;
             }

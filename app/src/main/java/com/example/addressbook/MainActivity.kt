@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -118,6 +119,17 @@ class MainActivity : AppCompatActivity() {
         if (item.itemId == R.id.settings_menu_item) {
             val intent = Intent(this, PreferencesActivity::class.java)
             startActivity(intent)
+            return true
+        }
+        if (item.itemId == R.id.about_menu_item) {
+            val builder = AlertDialog.Builder(binding.root.context)
+
+            builder.setTitle("Address Book")
+            builder.setMessage("Hello there, My name is Warren Overstreet and I am the developer of Address Book.\n" +
+                    "I hope you enjoy it in all of your contact and address book needs. \n \n" +
+                    "The image used for the launch icon is provided by: \nhttp://clipart-library.com/clipart/1434882.htm")
+            builder.setPositiveButton("Ok", null)
+            builder.show()
             return true
         }
         return super.onOptionsItemSelected(item)

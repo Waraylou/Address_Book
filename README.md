@@ -7,7 +7,7 @@ Users may store The first and last name of the person, their email address, thei
   On the main application, on the top right will be a menu and a gear icon.
   By clicking the gear icon a user will open the shared preferences menu which currently
     only adds the option of a darkmode.
-  The user may gain information about the developer by pressing the menu on the top right of the main screen and selecting the "About" option
+  The user may gain information about the developer by pressing the menu on the top right of the main screen and selecting the "About" option.
   Also on the main application, all contact are sorted by the last name of the contact.
   
 A user may add a contact by pressing the menu on the top right of the main screen and selecting the "Add contact" option

@@ -10,7 +10,7 @@ Users may store The first and last name of the person, their email address, thei
   Also on the main application, all contact are sorted by the last name of the contact.
   
 A user may add a contact by pressing the plus icon on the top right of the main screen
-  They will be directed to another activity with empty fields, they are only required to input a First and Last Name
+  They will be directed to another activity with empty fields, they are only required to input a First and Last Name.
 
 Within the Add Contact activity, they may save a contact after they have input the required information
   by either pressing the back button or by pressing the Save Contact button within the menu on the top right.
